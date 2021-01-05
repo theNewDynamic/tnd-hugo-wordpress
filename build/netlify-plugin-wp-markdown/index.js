@@ -134,6 +134,37 @@ const writeFile = async ({ fullFilePath, content, failPlugin }) => {
 };
 
 
+const getCacheTimestamp = async ({ cache, fullFilePath, failPlugin }) => {
+  // getCacheTimestamp({
+  // cache = cache
+  // fullFilePath = string, the local file path and name
+  // failPlugin: failPlugin
+  // });
+
+  if (await cache.has(fullFilePath)) {
+    await cache.restore(fullFilePath);
+    const cacheDate = await readFile({
+      file: fullFilePath,
+      failPlugin: failPlugin
+    });
+
+    // Log cache timestamp in console
+    log({
+      color: yellow,
+      label: "Restoring markdown cache from",
+      value: cacheDate
+    });
+    return new Date(cacheDate);
+  } else {
+    // Log no cache file found
+    log({
+      color: yellow,
+      label: "No cache file found"
+    });
+    return 0;
+  }
+};
+
 const writeCacheTimestamp = async ({ cache, fullFilePath, failPlugin }) => {
   // writeCacheTimestamp({
   // cache = cache
@@ -201,7 +232,7 @@ module.exports = {
       authorsDir ="./remote/authors/",
       postsDir = "./remote/publications/",
       postDatePrefix = true,
-      cacheFile = "./_data/mockarooMarkdownCache.json"
+      cacheFile = "./remote/cache/wpMarkdownCache.json"
     },
     utils: {
       build: { failPlugin },
@@ -214,11 +245,16 @@ module.exports = {
     const remotePages = wpAPI('pages')
     const remoteAuthors = wpAPI('tax_profile?per_page=100')
     const remoteWorkTypes = wpAPI('tax_work_type?per_page=100')
-    const [pages, posts, authors, work_types] = await Promise.all([
+    const [cacheDate, pages, posts, authors, work_types] = await Promise.all([
+      getCacheTimestamp({
+        cache: cache,
+        fullFilePath: cacheFile,
+        failPlugin: failPlugin
+      }),
       remotePages,
       remotePosts,
       remoteAuthors,
-      remoteWorkTypes
+      remoteWorkTypes,
     ]);
 
     await Promise.all([
@@ -235,9 +271,17 @@ module.exports = {
         const fullFilePath = pagesDir + fileName;
 
         // Get the post updated date and last cached date
-        const postUpdatedAt = new Date(page.date);
+        const postUpdatedAt = new Date(page.updated_at ? page.updated_at : page.date);
 
-        if (false){
+        if ((await cache.has(fullFilePath)) && cacheDate > postUpdatedAt) {
+          // Restore markdown from cache
+          await cache.restore(fullFilePath);
+
+          log({
+            color: cyan,
+            label: "Restored from cache",
+            value: fullFilePath
+          });
         } else {
           // Generate markdown file
           await writeFile({
@@ -265,9 +309,17 @@ module.exports = {
         const fullFilePath = postsDir + fileName;
 
         // Get the page updated date and last cached date
-        const pageUpdatedAt = new Date(post.date);
+        const postUpdatedAt = new Date(post.updated_at ? post.updated_at : post.date);
 
-        if (false){
+        if ((await cache.has(fullFilePath)) && cacheDate > postUpdatedAt) {
+          // Restore markdown from cache
+          await cache.restore(fullFilePath);
+
+          log({
+            color: cyan,
+            label: "Restored from cache",
+            value: fullFilePath
+          });
         } else {
           // Generate markdown file
           await writeFile({
@@ -295,9 +347,17 @@ module.exports = {
         const fullFilePath = authorsDir + fileName;
 
         // Get the page updated date and last cached date
-        const pageUpdatedAt = new Date(author.date);
+        const postUpdatedAt = new Date(author.updated_at ? author.updated_at : author.date);
 
-        if (false){
+        if ((await cache.has(fullFilePath)) && cacheDate > postUpdatedAt) {
+          // Restore markdown from cache
+          await cache.restore(fullFilePath);
+
+          log({
+            color: cyan,
+            label: "Restored from cache",
+            value: fullFilePath
+          });
         } else {
           // Generate markdown file
           await writeFile({
@@ -325,9 +385,17 @@ module.exports = {
         const fullFilePath = './remote/work_types/' + fileName;
 
         // Get the page updated date and last cached date
-        const pageUpdatedAt = new Date(work_type.date);
+        const postUpdatedAt = new Date(work_type.updated_at ? work_type.updated_at : work_type.date);
 
-        if (false){
+        if ((await cache.has(fullFilePath)) && cacheDate > postUpdatedAt) {
+          // Restore markdown from cache
+          await cache.restore(fullFilePath);
+
+          log({
+            color: cyan,
+            label: "Restored from cache",
+            value: fullFilePath
+          });
         } else {
           // Generate markdown file
           await writeFile({

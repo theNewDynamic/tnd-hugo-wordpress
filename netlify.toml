@@ -13,8 +13,8 @@ command = "hugo --minify -e cached"
 [context.branch-deploy]
 command = "hugo --minify -e cached -b $DEPLOY_PRIME_URL"
 
-[[plugins]]
-  package = "@netlify/plugin-local-install-core"
+# [[plugins]]
+  # package = "@netlify/plugin-local-install-core"
 [[plugins]]
   package = "./build/netlify-plugin-wp-markdown"
 
