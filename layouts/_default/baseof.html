@@ -1,0 +1,17 @@
+<html>
+  <head>
+    {{ if templates.Exists "partials/tnd-seo/tags.html" }}
+      {{ partial "tnd-seo/tags.html" . }}
+    {{ end }}
+    {{ partialCached "tnd-styles/tags.html" . }}
+    
+  </head>
+  <body class="box-border">
+    {{ partial "header.html" . }}
+    <main class="">
+      {{ block "main" . }}
+        
+      {{ end }}
+    </main>
+  </body>
+</html>

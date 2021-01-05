@@ -1,0 +1,7 @@
+github.com/theNewDynamic/hugo-module-tnd-seo v0.1.5 h1:0ZmdfWV5+mFqplCYyUsGyjPOTSNyxjXYsUmoa+H7ftc=
+github.com/theNewDynamic/hugo-module-tnd-seo v0.1.5/go.mod h1:VY3Qvzif9T0Z0rjR85ufUQE1wrS/M5VZC9Dx1V8Vo8Y=
+github.com/theNewDynamic/hugo-module-tnd-styles v0.1.4 h1:WoyJRs/VPGHU3ii7krqy0qzWL9F9vnXKqRL60I6hWzY=
+github.com/theNewDynamic/hugo-module-tnd-styles v0.1.4/go.mod h1:Ih6Fi3sn/qasVNDN3wXpO5NDH16G1o7QeY/EoKfxGcI=
+github.com/theNewDynamic/hugo-module-tnd-tags v0.0.0-20201211194945-3652bbe3bbbc h1:Ih3DscJCXTLhaQenaNo+1Qiz8kU01TpmCiRO8aNyXs8=
+github.com/theNewDynamic/hugo-module-tnd-tags v0.0.0-20201211194945-3652bbe3bbbc/go.mod h1:fuXjv9Nbt2hi6oaOVAqhPRrS4hL9uYcwroo6V/Mw7Uk=
+github.com/theNewDynamic/unit-tests v0.0.0-20190529125533-bc05cefb0861/go.mod h1:bBUzgtFnCFIzPFpQk00xXVCHHLDkPqk85k4TV+eH3JE=

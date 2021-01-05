@@ -1,0 +1,23 @@
+{
+		"hugo": {
+				"version": "0.78.1",
+				"extended": true
+		},
+		"scripts": {
+				"cms": "run-p api-cms hugo-cms",
+				"api-cms": "npx netlify-cms-proxy-server",
+				"hugo-cms": "HUGO_ENV=development bin/hugo* server --minify -D --noHTTPCache",
+				"start": "HUGO_ENV=development bin/hugo* server -D",
+				"deploy": "HUGO_ENV=production bin/hugo* --gc --minify"
+		},
+		"dependencies": {
+				"netlify-cli": "^2.59.1",
+				"netlify-cms": "^2.10.55",
+				"postcss-cli": "^7.1.1",
+				"postcss-import": "^12.0.1",
+				"tailwindcss": "^1.7.3"
+		},
+		"devDependencies": {
+				"npm-run-all": "^4.1.5"
+		}
+}

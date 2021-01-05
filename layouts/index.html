@@ -1,0 +1,10 @@
+{{ define "main" }}
+
+<div class="mx-auto max-w-4xl">
+  {{ range where site.RegularPages "Type" "articles" }}
+  <div class="p-4 my-4 block border">
+    <a class="block" href="{{ .RelPermalink }}">{{ .Title }}</a>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

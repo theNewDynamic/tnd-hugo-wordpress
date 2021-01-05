@@ -1,0 +1,38 @@
+verbose: false
+description: Something fun
+tnd_warn:
+  warnings: noep
+tnd_seo:
+  jsonld: true
+  enable_follow: true
+  disable_title: false
+tnd_styles:
+  fonts:
+  - family: Open
+    file: fonts/files/open-sans-v17-latin-300
+    weight: 300
+    font-style: normal
+    stretch: something
+  - family: Open
+    file: fonts/files/open-sans-v17-latin-300italic
+    weight: 300
+    style: italic
+
+  - family: Open
+    file: fonts/files/open-sans-v17-latin-regular
+    weight: 400
+
+  - family: Open
+    file: fonts/files/open-sans-v17-latin-italic
+    weight: 400
+    style: italic
+
+  - family: Open
+    file: fonts/files/open-sans-v17-latin-700
+    weight: 700
+    style: normal
+
+  - family: Open
+    file: fonts/files/open-sans-v17-latin-700italic
+    weight: 700
+    style: italic

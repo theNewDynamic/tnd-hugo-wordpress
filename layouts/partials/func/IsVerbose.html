@@ -1,0 +1,5 @@
+{{ $return := false }}
+{{ with site.Params.verbose }}
+  {{ $return = . }}
+{{ end }}
+{{ return $return }}

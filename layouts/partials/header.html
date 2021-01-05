@@ -1,0 +1,10 @@
+<header class="border-t border-b mb-8">
+  <div class="flex justify-between items-center mx-auto py-4 max-w-4xl">
+    <h1 class="text-4xl"><a href="{{ site.Home.RelPermalink }}">TND Dev</a></h1>
+    <div class="flex flex-end">
+      {{ range site.Menus.main }}
+      <a class="ml-4" href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+    </div>
+  </div>
+</header>

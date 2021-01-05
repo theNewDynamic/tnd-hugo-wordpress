@@ -1,0 +1,9 @@
+imports:
+  - path: github.com/theNewDynamic/hugo-module-tnd-seo
+  - path: github.com/theNewDynamic/hugo-module-tnd-styles
+  - path: github.com/theNewDynamic/unit-tests
+    ignoreConfig: true
+    mounts:
+    - source: content/unit-tests
+      target: content/articles
+      lang: en

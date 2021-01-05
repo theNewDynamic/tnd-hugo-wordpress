@@ -1,0 +1,23 @@
+[build]
+publish = "public"
+command = "hugo --minify -e cached"
+
+[build.environment]
+  HUGO_VERSION = "0.78.1"
+  GO_VERSION = "1.14"
+
+[context.production]
+[context.production.environment]
+  HUGO_ENV = "production"
+
+[context.branch-deploy]
+command = "hugo --minify -e cached -b $DEPLOY_PRIME_URL"
+
+#[[plugins]]
+  #package = "@netlify/plugin-local-install-core"
+[[plugins]]
+  package = "./build/netlify-plugin-mockaroo"
+
+    [plugins.inputs]
+    mockarooURL = "https://tnd-mockapi.netlify.app"
+    mockarooKey = "4ec988a0"

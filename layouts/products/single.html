@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <div class="mx-auto max-w-4xl">
+    <h1 class="text-3xl">{{ .Title }}</h1>
+    {{ with .Params.product }}
+    {{ partial "tnd-snipcart/form" (dict "Page" $ "settings" "single") }}
+    {{ end }}
+    <div class="mb-5">
+      {{ .Content }}
+    </div>
+  </div>
+{{ end }}

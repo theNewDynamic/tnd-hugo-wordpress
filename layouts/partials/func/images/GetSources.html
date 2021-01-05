@@ -1,0 +1,22 @@
+{{ $image := slice }}
+{{ $IsVerbose := partialCached "func/IsVerbose" "IsVerbose" }}
+{{ if eq .MediaType.MainType "image" }}
+  {{ $image = dict "resource" . }}
+  {{ $srcs := slice (dict "label" "original" "URL" .RelPermalink) }}
+
+  {{ if gt .Width 0 }}
+    {{ if $IsVerbose }}
+    {{ warnf "%s %d" .RelPermalink .Width }}
+    {{ end }}
+    {{ with .Resize "600x" }}
+      {{ $srcs = $srcs | append (dict "label" "hugo" "URL" .RelPermalink ) }}
+    {{ end }}
+  {{ end }}
+
+  {{ $args := dict "src" .RelPermalink "width" 600 }}
+  {{ with partialCached "tnd-imgix/GetSRC" $args $args }}
+    {{ $srcs = $srcs | append (dict "label" "imgix" "URL" .) }}
+  {{ end }}
+  {{ $image = merge $image (dict "srcs" $srcs) }}
+{{ end }}
+{{ return $image }}
