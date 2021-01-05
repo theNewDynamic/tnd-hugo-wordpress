@@ -3,7 +3,7 @@ publish = "public"
 command = "hugo --minify -e cached"
 
 [build.environment]
-  HUGO_VERSION = "0.78.1"
+  HUGO_VERSION = "0.80.0"
   GO_VERSION = "1.14"
 
 [context.production]
@@ -13,11 +13,10 @@ command = "hugo --minify -e cached"
 [context.branch-deploy]
 command = "hugo --minify -e cached -b $DEPLOY_PRIME_URL"
 
-#[[plugins]]
-  #package = "@netlify/plugin-local-install-core"
 [[plugins]]
-  package = "./build/netlify-plugin-mockaroo"
+  package = "@netlify/plugin-local-install-core"
+[[plugins]]
+  package = "./build/netlify-plugin-wp-markdown"
 
     [plugins.inputs]
-    mockarooURL = "https://tnd-mockapi.netlify.app"
-    mockarooKey = "4ec988a0"
+    wpURL = "https://agnionline.bu.edu/wordpress"

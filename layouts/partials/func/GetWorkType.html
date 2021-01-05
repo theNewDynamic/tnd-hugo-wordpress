@@ -1,0 +1,10 @@
+{{ $type := false }}
+{{ range $id := . }}
+  {{ with where site.RegularPages ".Type" "work_types" }}
+    {{ with where . ".Params.remote_id" (int $id) }}
+      {{ $type = index . 0 }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $type }}

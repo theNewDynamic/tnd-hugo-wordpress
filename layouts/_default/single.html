@@ -1,7 +1,17 @@
 {{ define "main" }}
   <div class="mx-auto max-w-4xl">
-    <h1>{{ .Title }}</h1>
-    <div class="mb-5">
+    <h1 class="text-2xl mb-8 flex justify-between"><span>{{ .Title | safeHTML }}</span></h1>
+    {{ with .Params.authors }}
+      {{ with partialCached "func/GetAuthors" . . }}
+        {{ range . }}
+          <div class="text-bold">
+            {{ .Title }}
+          </div>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    
+    <div class="mb-5 user-content">
       {{ .Content }}
     </div>
   </div>

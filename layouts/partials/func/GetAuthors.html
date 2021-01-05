@@ -1,0 +1,10 @@
+{{ $authors := slice }}
+{{ range $id := . }}
+  {{ with where site.RegularPages ".Type" "authors" }}
+    {{ with where . ".Params.remote_id" (int $id) }}
+      {{ $authors = $authors | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $authors }}

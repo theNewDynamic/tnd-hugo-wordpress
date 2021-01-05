@@ -1,10 +1,15 @@
 {{ define "main" }}
 
 <div class="mx-auto max-w-4xl">
-  {{ range where site.RegularPages "Type" "articles" }}
-  <div class="p-4 my-4 block border">
-    <a class="block" href="{{ .RelPermalink }}">{{ .Title }}</a>
-  </div>
+  <h2 class="text-3xl bold">
+    Our Publications
+  </h2>
+  {{ $paginator := .Paginate (where site.RegularPages "Type" "publications") 10 }}
+  {{ range $paginator.Pages }}
+  {{ .Render "li" }}
   {{ end }}
+  <div class="my-5">
+    {{ template "_internal/pagination.html" . }}
+  </div>
 </div>
 {{ end }}

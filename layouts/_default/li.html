@@ -1,0 +1,8 @@
+<div class="p-4 flex items-center justify-between my-4 block border">
+  <a class="block" href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+  {{ with .Params.work_types }}
+    {{ with partialCached "func/GetWorkType" . . }}
+      <a class="text-blue-500 hover:underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ end }}
+  {{ end }}
+</div>

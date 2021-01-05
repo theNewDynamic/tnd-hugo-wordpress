@@ -2,9 +2,7 @@
 <div class="mx-auto max-w-4xl">
   <div class="list-group">
   {{ range $item := .Pages }}
-    <div class="p-4 my-4 block border">
-      <a class="block" href="{{ .RelPermalink }}">{{ .Title }}</a>
-    </div>
+   {{ .Render "li" }}
   {{ end }}
   </div>
 </div>

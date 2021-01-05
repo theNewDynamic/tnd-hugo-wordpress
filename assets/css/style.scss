@@ -4,3 +4,15 @@ body{
   }
   font-family: Open;
 }
+
+.user-content{
+  p{
+    margin-bottom: 1rem;
+  }
+}
+
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

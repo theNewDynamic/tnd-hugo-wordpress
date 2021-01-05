@@ -1,0 +1,14 @@
+{{ define "main" }}
+  {{ $pages := where site.RegularPages ".Params.work_types" "intersect" (slice (string $.Params.remote_id)) }}
+  <div class="mx-auto max-w-4xl">
+    <h1 class="text-2xl flex justify-between"><span>{{ .Title }}</span> <span>({{ len $pages }})</span></h1>
+    <div class="my-8 italic">
+      {{ .Params.description }}
+    </div>
+    {{ range $pages }}
+    <div class="p-4 flex items-center justify-between my-4 block border">
+      <a class="block" href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+    </div>
+    {{ end }}
+  </div>
+{{ end }}

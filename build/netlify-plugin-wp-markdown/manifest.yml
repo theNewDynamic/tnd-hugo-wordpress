@@ -1,0 +1,7 @@
+name: netlify-plugin-wp-markdown
+inputs:
+  - name: wpURL
+    description: Your Ghost domain, must not end in a trailing slash
+    required: true
+  - name: cacheFile
+    description: Set the filename and path for the cache file (_data/mockarooMarkdownCache.json by default)

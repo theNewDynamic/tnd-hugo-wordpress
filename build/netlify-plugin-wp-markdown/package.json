@@ -1,0 +1,25 @@
+{
+  "name": "netlify-plugin-wp-hugo",
+  "version": "3.0.3",
+  "description": "Generates posts, pages, tag pages and author pages from a Ghost publication as markdown files, using the Ghost Content API.",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "netlify",
+    "netlify-plugin",
+    "ghost",
+    "markdown"
+  ],
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "fs-extra": "^8.1.0",
+    "node-fetch": "^2.6.0",
+    "slugify": "^1.4.6",
+    "wpapi": "^1.2.1"
+  },
+  "devDependencies": {
+    "@netlify/build": "^0.1.117",
+    "copyfiles": "^2.2.0",
+    "netlify-cli": "^2.51.0"
+  }
+}

@@ -1,0 +1,1 @@
+This is an R&D project using most of the code of [@daviddarnes](https://github.com/daviddarnes)'s [Netlify Ghost Build Plugin](https://github.com/daviddarnes/netlify-plugin-ghost-markdown#readme)
