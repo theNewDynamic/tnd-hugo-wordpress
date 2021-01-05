@@ -1,4 +1,8 @@
-<div class="p-4 flex items-center justify-between my-4 block border">
+{{ $content := false }}
+{{ with .Content }}
+  {{ $content = true }}
+{{ end }}
+<div class="p-4 flex items-center justify-between my-4 block border {{ if $content }} border-green-300 {{ end }}">
   <a class="block" href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
   {{ with .Params.work_types }}
     {{ with partialCached "func/GetWorkType" . . }}

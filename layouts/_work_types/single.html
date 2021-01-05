@@ -5,10 +5,9 @@
     <div class="my-8 italic">
       {{ .Params.description }}
     </div>
+    {{ partial "legend" . }}
     {{ range $pages }}
-    <div class="p-4 flex items-center justify-between my-4 block border">
-      <a class="block" href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
-    </div>
+    {{ .Render "li" }}
     {{ end }}
   </div>
 {{ end }}

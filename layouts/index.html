@@ -4,6 +4,7 @@
   <h2 class="text-3xl bold">
     Our Publications
   </h2>
+  {{ partial "legend" . }}
   {{ $paginator := .Paginate (where site.RegularPages "Type" "publications") 10 }}
   {{ range $paginator.Pages }}
   {{ .Render "li" }}
