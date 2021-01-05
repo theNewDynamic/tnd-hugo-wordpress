@@ -3,7 +3,7 @@ const path = require("path");
 const fetch = require("node-fetch");
 const url = require("url");
 const { cyan, green, yellow } = require("chalk");
-const WPAPI = require( 'wpapi' );
+const createMarkdownContent = require('./utils/createMarkdownContent')
 const log = ({ color, label, value = false }) => {
   // log({
   // color = chalk color
@@ -12,111 +12,6 @@ const log = ({ color, label, value = false }) => {
   // });
   console.log(`${color(label)}${value ? color(`: ${color.bold(value)}`) : ""}`);
 };
-
-/**
- * Transform a string into a slug
- * Uses slugify package
- *
- * @param {String} str - string to slugify
- */
-strToSlug = function(str) {
-  const options = {
-    replacement: "-",
-    remove: /[&,+()$~%.'":*?<>{}]/g,
-    lower: true
-  };
-
-  return slugify(str, options);
-}
-
-const dedent = ({ string }) => {
-  // dedent({
-  // string = string, the template content
-  // });
-
-  // Take any string and remove indentation
-  string = string.replace(/^\n/, "");
-  const match = string.match(/^\s+/);
-  const dedentedString = match
-    ? string.replace(new RegExp("^" + match[0], "gm"), "")
-    : string;
-
-  return dedentedString;
-};
-
-const createMarkdownContent = ({ content, template }) => {
-  // createMarkdownContent({
-  // content = object, the content item
-  // imagesPath = string, the base path for Ghost images
-  // assetsPath = string, the new path for images
-  // layout = string, the layout name
-  // });
-
-  // Format tags into a comma separated string
-  const formatTags = (tags) => {
-    if (tags) {
-      return JSON.stringify(tags);
-    }
-    return "";
-  };
-
-  // Create the markdown template
-  const templates = {
-  page: `
-    ---
-    date: ${content.date}
-    title: "${content.title ? content.title.rendered : ""}"
-    remote_id: ${content.id}
-    excerpt: "${content.excerpt ? content.excerpt.rendered : ""}"
-    ---
-    ${
-      content.content
-        ? content.content.rendered
-        : ""
-    }
-  `,
-  publication: `
-    ---
-    title: "${content.title ? content.title.rendered : ""}"
-    slug: "${content.slug}"
-    remote_id: ${content.id}
-    authors: ${formatTags(content.tax_profile)}
-    work_types: ${formatTags(content.tax_work_type)}
-    excerpt: "${content.custom_excerpt ? content.custom_excerpt : ""}"
-    ---
-    ${
-      content.content
-        ? content.content.rendered
-        : ""
-    }
-  `,
-  work_type: `
-    ---
-    title: "${content.name}"
-    slug: "${content.slug}"
-    remote_id: ${content.id}
-    description: ${content.description}
-    ---
-    ${
-      content.content
-        ? content.content.rendered
-        : ""
-    }
-  `,
-  author: `
-    ---
-    title: "${content.name}"
-    remote_id: ${content.id}
-    slug: "${content.slug}"
-    excerpt: "${content.custom_excerpt ? content.custom_excerpt : ""}"
-    ---
-  `
-}
-
-  // Return the template without the indentation
-  return dedent({ string: templates[template] });
-};
-
 
 const writeFile = async ({ fullFilePath, content, failPlugin }) => {
   // writeFile({
@@ -206,23 +101,7 @@ const readFile = async ({ file, failPlugin }) => {
   // Return file content
   return fileContent;
 };
-const wpAPI = async function(endpoint) {
-  const wpURL = 'https://agnionline.bu.edu/wordpress/wp-json/wp/v2/'
 
-  return fetch(wpURL + endpoint).then(response => {
-    const output = response.json()
-    return output
-  })
-}
-
-const wpNodeAPI = async function() {
-  const wp = new WPAPI({ endpoint: 'https://agnionline.bu.edu/wordpress/wp-json' });
-  wp.publication().then(function( data ) {
-      return data.json()
-  }).catch(function( err ) {
-      // handle error
-  });
-}
 // Begin plugin export
 module.exports = {
   onPreBuild: async ({
@@ -239,6 +118,15 @@ module.exports = {
       cache
     }
   }) => {
+
+    const wpAPI = async function(endpoint) {
+      const wpAPIURL = wpURL + '/wp-json/wp/v2/'
+    
+      return fetch(wpAPIURL + endpoint).then(response => {
+        const output = response.json()
+        return output
+      })
+    }
 
     // Initialise Ghost Content API
     const remotePosts = wpAPI('publication?per_page=100')
