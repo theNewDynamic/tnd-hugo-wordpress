@@ -3,5 +3,7 @@ inputs:
   - name: projectID
     description: Sanity's project ID
     required: true
+  - name: dataset
+    description: The desired dataset, defaults to production
   - name: contentDir
     description: The directory where to create the markdown files
