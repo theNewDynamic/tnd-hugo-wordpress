@@ -16,7 +16,13 @@ command = "hugo --minify -e cached -b $DEPLOY_PRIME_URL"
 [[plugins]]
   package = "@netlify/plugin-local-install-core"
 [[plugins]]
+  package = "./build/netlify-plugin-sanity-markdown"
+  [plugins.inputs]
+  projectID = "xcspw247"
+  dataset = "production"
+  contentDir = "remote/sanity"
+[[plugins]]
   package = "./build/netlify-plugin-wp-markdown"
-
-    [plugins.inputs]
-    wpURL = "https://agnionline.bu.edu/wordpress"
+  [plugins.inputs]
+  wpURL = "https://agnionline.bu.edu/wordpress"
+  contentDir = "remote/wp"

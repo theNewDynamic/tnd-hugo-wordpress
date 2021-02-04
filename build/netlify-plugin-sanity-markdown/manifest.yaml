@@ -1,0 +1,7 @@
+name: netlify-plugin-sanity-markdown
+inputs:
+  - name: projectID
+    description: Sanity's project ID
+    required: true
+  - name: contentDir
+    description: The directory where to create the markdown files

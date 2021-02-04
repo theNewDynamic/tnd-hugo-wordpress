@@ -2,8 +2,14 @@
 {{ with .Content }}
   {{ $content = true }}
 {{ end }}
-<div class="p-4 flex items-center justify-between my-4 block border {{ if $content }} border-green-300 {{ end }}">
-  <a class="block" href="{{ .RelPermalink }}">{{ .Title | safeHTML }}</a>
+<div class="p-4 relative flex items-center justify-between my-4 block border {{ if $content }} border-green-300 {{ end }}">
+  <a class="block " href="{{ .RelPermalink }}">{{ .Title | safeHTML }}
+  </a>
+  {{ with .Params.remote_service }}
+  <div class="absolute right-0 top-0 border-b border-l px-2 text-xs">
+    {{ . }}
+  </div>
+{{ end }}
   {{ with .Params.work_types }}
     {{ with partialCached "func/GetWorkType" . . }}
       <a class="text-blue-500 hover:underline" href="{{ .RelPermalink }}">{{ .Title }}</a>

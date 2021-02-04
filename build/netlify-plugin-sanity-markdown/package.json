@@ -1,0 +1,18 @@
+{
+  "name": "netlify-plugin-sanity-markdown",
+  "version": "3.0.3",
+  "description": "Generates posts, pages, tag pages and author pages from sanity Content API.",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "netlify",
+    "netlify-plugin",
+    "sanity",
+    "markdown"
+  ],
+  "dependencies": {
+    "@sanity/block-content-to-markdown": "^0.0.5",
+    "@sanity/client": "^2.2.6",
+    "fs-extra": "^9.1.0"
+  }
+}

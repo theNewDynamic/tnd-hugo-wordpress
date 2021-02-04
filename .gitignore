@@ -17,6 +17,7 @@ public
 # FE Setup
 .bin/node_modules/
 /node_modules/
+node_modules
 /npm-debug.log.*
 /npm-debug.log
 /npm-debug.log*
@@ -32,6 +33,7 @@ hugo_stats.json
 public
 layouts/partials/tnd-snipcart/private/GetAPIKey.html
 remote
+remote_sanity
 
 # Local Netlify folder
 .netlify

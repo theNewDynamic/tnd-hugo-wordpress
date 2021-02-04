@@ -107,11 +107,9 @@ module.exports = {
   onPreBuild: async ({
     inputs: {
       wpURL,
-      pagesDir = "./remote/pages/",
-      authorsDir ="./remote/authors/",
-      postsDir = "./remote/publications/",
+      contentDir = "./remote/wp",
       postDatePrefix = true,
-      cacheFile = "./remote/cache/wpMarkdownCache.json"
+      cacheFile = "./remote/wp/cache/wpMarkdownCache.json"
     },
     utils: {
       build: { failPlugin },
@@ -129,6 +127,9 @@ module.exports = {
     }
 
     // Initialise Ghost Content API
+    const pagesDir = contentDir + "/pages/"
+    const authorsDir = contentDir + "/authors/"
+    const postsDir = contentDir + "/publications/"
     const remotePosts = wpAPI('publication?per_page=100')
     const remotePages = wpAPI('pages')
     const remoteAuthors = wpAPI('tax_profile?per_page=100')
@@ -270,7 +271,7 @@ module.exports = {
         let fileName = `${work_type.slug}.md`;
 
         // The full file path and name
-        const fullFilePath = './remote/work_types/' + fileName;
+        const fullFilePath = contentDir + '/work_types/' + fileName;
 
         // Get the page updated date and last cached date
         const postUpdatedAt = new Date(work_type.updated_at ? work_type.updated_at : work_type.date);

@@ -22,6 +22,7 @@ module.exports = ({ content, template }) => {
       date: ${content.date}
       title: "${content.title ? content.title.rendered : ""}"
       remote_id: ${content.id}
+      remote_service: wp
       excerpt: "${content.excerpt ? content.excerpt.rendered : ""}"
       ---
       ${
@@ -35,6 +36,7 @@ module.exports = ({ content, template }) => {
       title: "${content.title ? content.title.rendered : ""}"
       slug: "${content.slug}"
       remote_id: ${content.id}
+      remote_service: wp
       authors: ${formatTags(content.tax_profile)}
       work_types: ${formatTags(content.tax_work_type)}
       excerpt: "${content.custom_excerpt ? content.custom_excerpt : ""}"
@@ -50,6 +52,7 @@ module.exports = ({ content, template }) => {
       title: "${content.name}"
       slug: "${content.slug}"
       remote_id: ${content.id}
+      remote_service: wp
       description: ${content.description}
       ---
       ${
@@ -62,6 +65,7 @@ module.exports = ({ content, template }) => {
       ---
       title: "${content.name}"
       remote_id: ${content.id}
+      remote_service: wp
       slug: "${content.slug}"
       excerpt: "${content.custom_excerpt ? content.custom_excerpt : ""}"
       ---

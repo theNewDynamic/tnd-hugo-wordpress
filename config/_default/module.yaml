@@ -5,17 +5,23 @@ mounts:
     target: layouts/work_types
   - source: content
     target: content
-  - source: remote/pages
+  - source: remote/wp/pages
     target: content/pages
-    lang: en
-  - source: remote/publications
+    lang: e
+  - source: remote/wp/publications
     target: content/publications
     lang: en
-  - source: remote/authors
+  - source: remote/wp/authors
     target: content/authors
     lang: en
-  - source: remote/work_types
+  - source: remote/wp/work_types
     target: content/work_types
+    lang: en
+  - source: remote/sanity/post
+    target: content/articles
+    lange: en
+  - source: remote/sanity/movie
+    target: content/movies
     lang: en
 imports:
   - path: github.com/theNewDynamic/hugo-module-tnd-seo
