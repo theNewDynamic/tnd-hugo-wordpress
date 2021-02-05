@@ -1,0 +1,51 @@
+{{ define "main" }}
+  <div class="mx-auto max-w-4xl">
+    <h1 class="text-2xl mb-8 flex justify-between"><span>{{ .Title | safeHTML }}</span></h1>
+    
+    <div class="grid grid-cols-3">
+      {{ with .Params.poster }}
+      <div>
+        <div class="border p-4 mr-8">
+          <img class="w-full block" src="{{ . }}" alt="Poster for {{ $.Title }}">
+        </div>
+      </div>
+
+      {{ end }}
+      <div class="mb-5 col-span-2 user-content">
+        {{ .Content }}
+        {{ with .Params.cast }}
+        <div class="font-bold text-xl mt-4">Characters</div>
+        <ul>
+          {{ range . }}
+            <li>
+              <div class="flex items-center">
+                <div class="mr-4">
+                  {{ .character }}:
+                </div>
+                {{ with partialCached "func/GetPerson" .person .person }}
+                  <a class="underline flex items-center" href="{{ .RelPermalink }}">
+                  {{ .Title }} <div class="w-8 h-8 bg-cover bg-center ml-4" style="background-image:url({{ .Params.image }});"></div>
+                </a>
+                {{ end }}
+              </div>
+
+            </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+    <div class="flex my-5 justify-between">
+      {{ with .PrevInSection }}
+        <a class="py-2 px-5 border text-lg" href="{{ .RelPermalink }}">
+          Previous: {{ .Title }}
+        </a>
+      {{ end }}
+      {{ with .NextInSection }}
+        <a class="py-2 px-5 border text-lg" href="{{ .RelPermalink }}">
+          Next: {{ .Title }}
+        </a>
+    {{ end }}
+    </div>
+  </div>
+{{ end }}

@@ -18,7 +18,7 @@ command = "hugo --minify -e cached -b $DEPLOY_PRIME_URL"
 [[plugins]]
   package = "./build/netlify-plugin-sanity-markdown"
   [plugins.inputs]
-  projectID = "xcspw247"
+  projectID = "2awf2h50"
   dataset = "production"
   contentDir = "remote/sanity"
 [[plugins]]

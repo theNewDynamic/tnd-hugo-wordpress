@@ -24,45 +24,19 @@ module.exports = {
           "```" + props.node.language + "\n" + props.node.code + "\n```",
       },
     };
-    if(false) {
-      fs.readdir(`./${contentDir}`, (err, files) => {
-        if (err) console.log(err);
-        else {
-          files.forEach((file) => {
-            console.log(`Deleting: ${file}`);
-            fs.unlink(`${contentDir}//${file}`, (err) => {
-              if (err) throw err;
-
-            });
-          });
-        }
-      });
+    if(true) {
+      fs.rmdir(`./${contentDir}`, { recursive: true })
+      .then(() => console.log(`Deleting: ${contentDir}`))
     }
     try {
       await client
-        .fetch(`*[_type in ["movie","post"]]{categories[]->{title}, _type, _id, date, slug, title, imdb, body}`)
+        .fetch(require('./groq/default.js'))
         .then((res) =>
           res.map(async (post) => {
             //output YAML frontmatter here
-            let frontmatter = "---";
-            frontmatter += `\nremote_service: sanity`
-            frontmatter +=`\nremote_id: ${post._id}`
-            Object.keys(post).forEach((field) => {
-              if (field === "slug") {
-                return (frontmatter += `\n${field}: "${post.slug.current}"`);
-              } else if (field === "categories") {
-                return (frontmatter += `\n${field}: [${post.categories.map(
-                  (cat) => `"${cat.title}"`
-                )}]`);
-              } else if (field === "body") {
-                return;
-              } else {
-                frontmatter += `\n${field}: "${post[field]}"`;
-              }
-            });
-            frontmatter += "\n---\n\n";
+            const frontmatter = require(`./templates/${post._type}.js`)(post)
 
-            const wholePost = `${frontmatter}${toMarkdown(post.body, {
+            const wholePost = `${frontmatter}\n${toMarkdown(post.overview, {
               serializers,
             })}`;
 

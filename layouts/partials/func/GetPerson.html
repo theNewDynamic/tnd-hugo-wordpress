@@ -1,0 +1,9 @@
+
+{{ $person := false }}
+{{ with where site.RegularPages ".Type" "persons" }}
+  {{ with where . ".Params.remote_id" (string $) }}
+    {{ $person = index . 0 }}
+  {{ end }}
+{{ end }}
+
+{{ return $person }}

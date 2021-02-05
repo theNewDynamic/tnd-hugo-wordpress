@@ -10,9 +10,12 @@
     {{ . }}
   </div>
 {{ end }}
-  {{ with .Params.work_types }}
-    {{ with partialCached "func/GetWorkType" . . }}
-      <a class="text-blue-500 hover:underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
-    {{ end }}
+{{ with .Params.work_types }}
+  {{ with partialCached "func/GetWorkType" . . }}
+    <a class="text-blue-500 hover:underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
   {{ end }}
+{{ end }}
+{{ with .Params.poster }}
+  <div class="w-8 h-8 bg-cover bg-center ml-4" style="background-image:url({{ . }});"></div>
+{{ end }}
 </div>
