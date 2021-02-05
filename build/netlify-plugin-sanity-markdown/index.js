@@ -1,3 +1,4 @@
+const slugify = require('slugify')
 module.exports = {
   onPreBuild: async ({
     inputs: {
@@ -33,14 +34,24 @@ module.exports = {
         .fetch(require('./groq/default.js'))
         .then((res) =>
           res.map(async (post) => {
+
             //output YAML frontmatter here
+ 
             const frontmatter = require(`./templates/${post._type}.js`)(post)
 
             const wholePost = `${frontmatter}\n${toMarkdown(post.overview, {
               serializers,
             })}`;
+            let slug = slugify(post.title, {
+              lower: true,
+              strict: true,
+            })
 
-            const filePath = `./${contentDir}/${post._type}/${post.slug.current}.md`;
+            if(typeof post.slug !== 'undefined') {
+              slug = post.slug.current
+            }
+
+            const filePath = `./${contentDir}/${post._type}/${slug}.md`;
             fs.outputFile(filePath, wholePost, function (err, data) {
               if (err) {
                 return console.log(err);

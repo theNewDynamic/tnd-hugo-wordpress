@@ -1,0 +1,43 @@
+{{ define "main" }}
+  <div class="mx-auto max-w-4xl">
+    <h1 class="text-2xl mb-8 flex justify-between"><span>{{ .Title | safeHTML }}</span></h1>
+    
+    <div class="grid grid-cols-3">
+      {{ with .Params.movie }}
+        {{ with partialCached "func/GetMovie" . . }}
+        {{ with .Params.poster }}
+          <div>
+            <div class="border p-4 mr-8">
+              <img class="w-full block" src="{{ . }}" alt="Poster for {{ $.Title }}">
+            </div>
+          </div>
+    
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      
+      <div class="mb-5 col-span-2 user-content">
+        {{ .Content }}
+        <div class="font-bold text-xl mt-4">Hours</div>
+        <p class="my-4">
+          <span class="font-bold text-lg">Start</span>: {{ .Params.start | dateFormat "Monday, Jan 2, 2006 at 15:04" }}
+        </p>
+        <p class="my-4">
+          <span class="font-bold text-lg">Snd</span>: {{ .Params.end | dateFormat "Monday, Jan 2, 2006 at 15:04" }}
+        </p>
+      </div>
+    </div>
+    <div class="flex my-5 justify-between">
+      {{ with .PrevInSection }}
+        <a class="py-2 px-5 border text-lg" href="{{ .RelPermalink }}">
+          Previous: {{ .Title }}
+        </a>
+      {{ end }}
+      {{ with .NextInSection }}
+        <a class="py-2 px-5 border text-lg" href="{{ .RelPermalink }}">
+          Next: {{ .Title }}
+        </a>
+    {{ end }}
+    </div>
+  </div>
+{{ end }}

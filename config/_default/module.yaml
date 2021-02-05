@@ -26,6 +26,9 @@ mounts:
   - source: remote/sanity/person
     target: content/persons
     lang: en
+  - source: remote/sanity/screening
+    target: content/screenings
+    lang: en
 imports:
   - path: github.com/theNewDynamic/hugo-module-tnd-seo
   - path: github.com/theNewDynamic/hugo-module-tnd-styles

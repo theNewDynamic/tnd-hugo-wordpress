@@ -1,0 +1,9 @@
+
+{{ $movie := false }}
+{{ with where site.RegularPages ".Type" "movies" }}
+  {{ with where . ".Params.remote_id" (string $) }}
+    {{ $movie = index . 0 }}
+  {{ end }}
+{{ end }}
+
+{{ return $movie }}
