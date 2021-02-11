@@ -3,7 +3,6 @@ const path = require("path");
 const fetch = require("node-fetch");
 const url = require("url");
 const { cyan, green, yellow } = require("chalk");
-const createMarkdownContent = require('./utils/createMarkdownContent')
 const log = ({ color, label, value = false }) => {
   // log({
   // color = chalk color
@@ -102,6 +101,12 @@ const readFile = async ({ file, failPlugin }) => {
   return fileContent;
 };
 
+const createMarkdownContent = (data, template) => {
+  const frontmatter = JSON.stringify(require('./templates/' + template + '.js')(data))
+  const body = data.content ? data.content.rendered : ''
+  return frontmatter + "\n" + body
+}
+
 // Begin plugin export
 module.exports = {
   onPreBuild: async ({
@@ -175,10 +180,7 @@ module.exports = {
           // Generate markdown file
           await writeFile({
             fullFilePath: fullFilePath,
-            content: createMarkdownContent({
-              content: page,
-              template: 'page'
-            })
+            content: createMarkdownContent(page, 'page')
           });
           // Cache the markdown file
           await cache.save(fullFilePath);
@@ -213,10 +215,7 @@ module.exports = {
           // Generate markdown file
           await writeFile({
             fullFilePath: fullFilePath,
-            content: createMarkdownContent({
-              content: post,
-              template: 'publication'
-            })
+            content: createMarkdownContent(post, 'publication')
           });
           // Cache the markdown file
           await cache.save(fullFilePath);
@@ -251,10 +250,7 @@ module.exports = {
           // Generate markdown file
           await writeFile({
             fullFilePath: fullFilePath,
-            content: createMarkdownContent({
-              content: author,
-              template: 'author'
-            })
+            content: createMarkdownContent(author, 'author')
           });
           // Cache the markdown file
           await cache.save(fullFilePath);
@@ -289,10 +285,7 @@ module.exports = {
           // Generate markdown file
           await writeFile({
             fullFilePath: fullFilePath,
-            content: createMarkdownContent({
-              content: work_type,
-              template: 'work_type'
-            })
+            content: createMarkdownContent(work_type,'work_type')
           });
           // Cache the markdown file
           await cache.save(fullFilePath);

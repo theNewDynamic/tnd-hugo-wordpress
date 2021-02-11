@@ -1,5 +1,5 @@
-module.exports = (content) => ({
-  title: content.title,
-  remote_id: content.remote_id,
+module.exports = (data) => ({
+  title: data.title,
+  remote_id: data.remote_id,
   remote_service: 'sanity',
 })
