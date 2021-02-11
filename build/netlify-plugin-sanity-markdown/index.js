@@ -39,9 +39,10 @@ module.exports = {
  
             const frontmatter = require(`./templates/${post._type}.js`)(post)
 
-            const wholePost = `${frontmatter}\n${toMarkdown(post.overview, {
+            const wholePost = `${JSON.stringify(frontmatter)}\n${toMarkdown(post.overview, {
               serializers,
             })}`;
+            
             let slug = slugify(post.title, {
               lower: true,
               strict: true,

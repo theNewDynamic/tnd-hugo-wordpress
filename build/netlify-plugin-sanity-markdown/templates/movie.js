@@ -1,19 +1,16 @@
-const dedent = require( 'dedent')
-module.exports = (content) => {
+module.exports = (data) => {
+  const cast = data.cast.map(
+    (char) => ({
+      character: char.character,
+      person: char.person
+    })
+  )
 
-const md = `
-  ---
-  title: "${content.title}"
-  remote_id: ${content.remote_id}
-  slug: "${content.slug.current}"
-  remote_service: sanity
-  description: ${content.description}
-  poster: ${content.poster}
-  cast: ${content.cast.map(
-    (char) => `\n- {character: ${char.character}, person: ${char.person}}`
-  ).join('')}
-  ---
-  \n
-`
-  return dedent(md);
+  const frontmatter = {
+    ...require('./base.js')(data),
+    description: data.description,
+    poster: data.poster,
+    cast
+  }
+  return frontmatter
 }
